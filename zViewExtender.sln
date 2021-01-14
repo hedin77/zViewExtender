@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zViewExtender", "zViewExtender\zViewExtender.vcxproj", "{760FF3B9-429A-4055-BD51-568A6588BD85}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		G1 Debug|x86 = G1 Debug|x86
+		G1 Release|x86 = G1 Release|x86
+		G1A Debug|x86 = G1A Debug|x86
+		G1A Release|x86 = G1A Release|x86
+		G2 Debug|x86 = G2 Debug|x86
+		G2 Release|x86 = G2 Release|x86
+		G2A Debug|x86 = G2A Debug|x86
+		G2A Release|x86 = G2A Release|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.Debug|x86.ActiveCfg = MP Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.Debug|x86.Build.0 = MP Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1 Debug|x86.ActiveCfg = G1 Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1 Debug|x86.Build.0 = G1 Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1 Release|x86.ActiveCfg = G1 Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1 Release|x86.Build.0 = G1 Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1A Debug|x86.ActiveCfg = G1A Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1A Debug|x86.Build.0 = G1A Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1A Release|x86.ActiveCfg = G1A Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G1A Release|x86.Build.0 = G1A Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2 Debug|x86.ActiveCfg = G2 Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2 Debug|x86.Build.0 = G2 Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2 Release|x86.ActiveCfg = G2 Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2 Release|x86.Build.0 = G2 Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2A Debug|x86.ActiveCfg = G2A Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2A Debug|x86.Build.0 = G2A Debug|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2A Release|x86.ActiveCfg = G2A Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.G2A Release|x86.Build.0 = G2A Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.Release|x86.ActiveCfg = MP Release|Win32
+		{760FF3B9-429A-4055-BD51-568A6588BD85}.Release|x86.Build.0 = MP Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE5D7CDC-2F21-4E6E-A95C-BE7C07C7C028}
+	EndGlobalSection
+EndGlobal
