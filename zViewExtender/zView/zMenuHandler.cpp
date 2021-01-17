@@ -1,10 +1,21 @@
 
 namespace NAMESPACE {
 
-  HOOK Ivk_Menu_Render  PATCH_IF( &zCMenu::Render,  &zCMenu::Render_Union , bUseCursorInMenu);
-  HOOK Ivk_Menu_HandleEvent PATCH_IF( &zCMenu::HandleEvent, &zCMenu::HandleEvent_Union, bUseCursorInMenu);
-  HOOK Ivk_Menu_ScreenInit  PATCH_IF( &zCMenu::ScreenInit,  &zCMenu::ScreenInit_Union, bUseCursorInMenu);
-  HOOK Ivk_Menu_ScreenDone  PATCH_IF( &zCMenu::ScreenDone,  &zCMenu::ScreenDone_Union, bUseCursorInMenu);
+  
+
+  static BOOL bUseCursorInMenu = NULL;
+
+  bool needUseCursorInMenu() {
+      if (bUseCursorInMenu == NULL) {
+          Union.GetSysPackOption().Read(bUseCursorInMenu, "zViewExtender", "UseCursorInMenu", true);
+      }
+      return bUseCursorInMenu;
+  }
+
+  HOOK Ivk_Menu_Render  PATCH_IF( &zCMenu::Render,  &zCMenu::Render_Union , needUseCursorInMenu());
+  HOOK Ivk_Menu_HandleEvent PATCH_IF( &zCMenu::HandleEvent, &zCMenu::HandleEvent_Union, needUseCursorInMenu());
+  HOOK Ivk_Menu_ScreenInit  PATCH_IF( &zCMenu::ScreenInit,  &zCMenu::ScreenInit_Union, needUseCursorInMenu());
+  HOOK Ivk_Menu_ScreenDone  PATCH_IF( &zCMenu::ScreenDone,  &zCMenu::ScreenDone_Union, needUseCursorInMenu());
 
   static bool g_bNewMenuInited = false;
 

@@ -7,18 +7,6 @@ namespace NAMESPACE {
   // TO DO
   // Your code ...
 
-    bool bUseCursorInMenu; 
-    bool bUseCursorInDialogs;
-    bool bUseCursorInInventory;
-
-
-    void checkIniParams() {
-        Union.GetSysPackOption().Read(bUseCursorInMenu, "zViewExtender", "UseCursorInMenu", true);
-        Union.GetSysPackOption().Read(bUseCursorInDialogs, "zViewExtender", "UseCursorInDialogs", true);
-        Union.GetSysPackOption().Read(bUseCursorInInventory, "zViewExtender", "UseCursorInInventory", true);
-    }
-
-
   LRESULT __stdcall KeyboardProc( int code, WPARAM wParam, LPARAM lParam ) {
     if( code == HC_ACTION ) {
       GetInputCharacter() = 0;
@@ -43,38 +31,29 @@ namespace NAMESPACE {
 
   void Game_Entry() {
     SetWindowsHookEx( WH_KEYBOARD_LL, KeyboardProc, 0, 0 );
+
+#if ENGINE >= Engine_G2
     PATCH_EXECUTE(
-      "MemSet(0x0064F1C7, '90', 0x0064F1F0 - 0x0064F1C7)"
+        "MemSet(0x0064F1C7, '90', 0x0064F1F0 - 0x0064F1C7)"
     );
-
-
-    checkIniParams();
+#endif
 
     Ivk_Menu_Render; 
     Ivk_Menu_HandleEvent;
 
-    bool enableInDialogs = true;
-    Union.GetSysPackOption().Read( enableInDialogs, "zViewExtender", "UseCursorInDialogs", enableInDialogs );
-    if( !enableInDialogs ) {
-      Ivk_zCViewDialogChoice_BlitText.Detach();
-      Ivk_zCViewDialog_StartSelection.Detach();
-      Ivk_zCViewDialog_StopSelection.Detach();
-      Ivk_zCViewDialogChoice_HandleEvent.Detach();
-    }
+    Ivk_zCViewDialogChoice_BlitText;
+    Ivk_zCViewDialog_StartSelection;
+    Ivk_zCViewDialog_StopSelection;
+    Ivk_zCViewDialogChoice_HandleEvent;
 
-
-    bool enableInInventory = true;
-    Union.GetSysPackOption().Read( enableInInventory, "zViewExtender", "UseCursorInInventory", enableInInventory );
-    if( !enableInInventory ) {
-      Ivk_oCItemContainer_HandleEvent.Detach();
-      Ivk_oCStealContainer_HandleEvent.Detach();
-      Ivk_oCNpcContainer_HandleEvent.Detach();
-      Ivk_oCNpcInventory_HandleEvent.Detach();
-      Ivk_oCNpcInventory_OpenPassive.Detach();
-      Ivk_oCNpcInventory_Close.Detach();
-      Ivk_oCItemContainer_Draw.Detach();
-      Ivk_oCItem_RenderItem.Detach();
-    }
+    Ivk_oCItemContainer_HandleEvent;
+    Ivk_oCStealContainer_HandleEvent;
+    Ivk_oCNpcContainer_HandleEvent;
+    Ivk_oCNpcInventory_HandleEvent;
+    Ivk_oCNpcInventory_OpenPassive;
+    Ivk_oCNpcInventory_Close;
+    Ivk_oCItemContainer_Draw;
+    Ivk_oCItem_RenderItem;
   }
 
   static zCViewNote* note = Null;

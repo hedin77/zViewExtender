@@ -1,15 +1,24 @@
 
 namespace NAMESPACE {
-  HOOK Ivk_oCItemContainer_HandleEvent  PATCH( &oCItemContainer::HandleEvent,  &oCItemContainer::HandleEvent_Union );
-  HOOK Ivk_oCStealContainer_HandleEvent PATCH( &oCStealContainer::HandleEvent, &oCStealContainer::HandleEvent_Union );
-  HOOK Ivk_oCNpcContainer_HandleEvent   PATCH( &oCNpcContainer::HandleEvent,   &oCNpcContainer::HandleEvent_Union );
-  HOOK Ivk_oCNpcInventory_HandleEvent   PATCH( &oCNpcInventory::HandleEvent,   &oCNpcInventory::HandleEvent_Union );
-  HOOK Ivk_oCNpcInventory_OpenPassive   PATCH( &oCItemContainer::OpenPassive,  &oCItemContainer::OpenPassive_Union );
-  HOOK Ivk_oCNpcInventory_Close         PATCH( &oCItemContainer::Close,        &oCItemContainer::Close_Union );
-  HOOK Ivk_oCItemContainer_Draw         PATCH( &oCItemContainer::Draw,         &oCItemContainer::Draw_Union );
-  HOOK Ivk_oCItem_RenderItem            PATCH( &oCItem::RenderItem,            &oCItem::RenderItem_Union );
 
 
+  static BOOL bUseCursorInInventory = NULL;
+  
+  bool needUseCursorInInventory() {
+       if (bUseCursorInInventory == NULL) {
+           Union.GetSysPackOption().Read(bUseCursorInInventory, "zViewExtender", "UseCursorInInventory", true);
+     }
+      return bUseCursorInInventory;
+  }
+
+  HOOK Ivk_oCItemContainer_HandleEvent  PATCH_IF( &oCItemContainer::HandleEvent,  &oCItemContainer::HandleEvent_Union,  needUseCursorInInventory());
+  HOOK Ivk_oCStealContainer_HandleEvent PATCH_IF( &oCStealContainer::HandleEvent, &oCStealContainer::HandleEvent_Union, needUseCursorInInventory());
+  HOOK Ivk_oCNpcContainer_HandleEvent   PATCH_IF( &oCNpcContainer::HandleEvent,   &oCNpcContainer::HandleEvent_Union,   needUseCursorInInventory());
+  HOOK Ivk_oCNpcInventory_HandleEvent   PATCH_IF( &oCNpcInventory::HandleEvent,   &oCNpcInventory::HandleEvent_Union, needUseCursorInInventory());
+  HOOK Ivk_oCNpcInventory_OpenPassive   PATCH_IF( &oCItemContainer::OpenPassive,  &oCItemContainer::OpenPassive_Union, needUseCursorInInventory());
+  HOOK Ivk_oCNpcInventory_Close         PATCH_IF( &oCItemContainer::Close,        &oCItemContainer::Close_Union, needUseCursorInInventory());
+  HOOK Ivk_oCItemContainer_Draw         PATCH_IF( &oCItemContainer::Draw,         &oCItemContainer::Draw_Union, needUseCursorInInventory());
+  HOOK Ivk_oCItem_RenderItem            PATCH_IF( &oCItem::RenderItem,            &oCItem::RenderItem_Union, needUseCursorInInventory());
 
 
   static oCItemContainer* s_inventory = Null;

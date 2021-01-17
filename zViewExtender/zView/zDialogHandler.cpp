@@ -6,13 +6,20 @@ namespace NAMESPACE {
   //CInvoke<bool_t( __thiscall* )( zCViewDialogChoice*, int )> Ivk_zCViewDialogChoice_HandleEvent ( ZCVIEWDIALOGCHOICE_HANDLEEVENT, &zCViewDialogChoice::HandleEvent_Union, HOOK_ENABLED );
 
 #if 1
-  HOOK Ivk_zCViewDialogChoice_BlitText    PATCH( &zCViewDialogChoice::BlitText,       &zCViewDialogChoice::BlitText_Union );
-  HOOK Ivk_zCViewDialog_StartSelection    PATCH( &zCViewDialogChoice::StartSelection, &zCViewDialogChoice::StartSelection_Union );
-  HOOK Ivk_zCViewDialog_StopSelection     PATCH( &zCViewDialogChoice::StopSelection,  &zCViewDialogChoice::StopSelection_Union );
-  HOOK Ivk_zCViewDialogChoice_HandleEvent PATCH( &zCViewDialogChoice::HandleEvent,    &zCViewDialogChoice::HandleEvent_Union );
 
+  static BOOL bUseCursorInDialogs = NULL;
 
+  bool needUseCursorInDialogs() {
+       if (bUseCursorInDialogs == NULL) {
+           Union.GetSysPackOption().Read(bUseCursorInDialogs, "zViewExtender", "UseCursorInDialogs", true);
+       }
+       return bUseCursorInDialogs;
+  }
 
+  HOOK Ivk_zCViewDialogChoice_BlitText    PATCH_IF( &zCViewDialogChoice::BlitText,       &zCViewDialogChoice::BlitText_Union, needUseCursorInDialogs());
+  HOOK Ivk_zCViewDialog_StartSelection    PATCH_IF( &zCViewDialogChoice::StartSelection, &zCViewDialogChoice::StartSelection_Union, needUseCursorInDialogs());
+  HOOK Ivk_zCViewDialog_StopSelection     PATCH_IF( &zCViewDialogChoice::StopSelection,  &zCViewDialogChoice::StopSelection_Union, needUseCursorInDialogs());
+  HOOK Ivk_zCViewDialogChoice_HandleEvent PATCH_IF( &zCViewDialogChoice::HandleEvent,    &zCViewDialogChoice::HandleEvent_Union, needUseCursorInDialogs());
 
 
   void zCViewDialogChoice::BlitText_Union() {
