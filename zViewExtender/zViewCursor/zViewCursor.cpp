@@ -60,6 +60,7 @@ namespace NAMESPACE {
         TopSelectedViewInteractive->EventDown( TopSelectedViewInteractive, this, button );
     }
     else if( TopSelectedViewNote ) {
+
       TopSelectedViewNote->EditBegin();
 
       if( button == zBUTTON_LEFT ) {
@@ -329,19 +330,33 @@ namespace NAMESPACE {
     uint index      = selectedViews.GetNum() - 1;
     TopSelectedView = Null;
 
-    while( index != Invalid ) {
-      TopSelectedView = selectedViews[index] != screen ?
-        selectedViews[index] :
-        Null;
+    index = selectedViews.GetNum() - 1;
+    zCView* lastInteractive = NULL;
+    
+    while (index != Invalid) {
 
-      zCViewInteractive* inter = dynamic_cast<zCViewInteractive*>(TopSelectedView);
-      if( !inter || inter->Selectable )
-        break;
-
-      index--;
+        if (selectedViews[index] != screen) {
+            if (dynamic_cast<zCViewInteractive*>(selectedViews[index])) {
+                TopSelectedView = dynamic_cast<zCViewInteractive*>(selectedViews[index]);
+            }
+        }
+        index--;
+    }
+    
+    if (!TopSelectedView) {
+        index = selectedViews.GetNum() - 1;
+        while (index != Invalid) {
+            TopSelectedView = selectedViews[index] != screen ? selectedViews[index] : Null;
+            if (selectedViews[index]) {
+               // cmd << Z "FrameEnd case usual  " << endl;
+                break;
+            }
+            index--;
+        }
     }
 
     bool isNewTop = oldTopView != TopSelectedView;
+
     if( isNewTop )
       if( TopSelectedViewInteractive )
         OnLeave();

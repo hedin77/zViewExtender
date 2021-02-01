@@ -64,8 +64,30 @@ namespace NAMESPACE {
       if( zinput->GetBinding( GAME_DOWN, keys ) )
         key = keys[0];
     }*/
+      
+      if (key == MOUSE_BUTTONLEFT) {
+          int x, y;
+          zCViewCursor*  cursor = zCViewCursor::GetCursor();
+          cursor->GetPixelPos(x, y);
+          Array<zCView*> selectedViews = cursor->GetHandledView()->GetTopViewList(
+              screen->nax(x),
+              screen->nay(y)
+          );
 
+          int index = selectedViews.GetNum() - 1;
 
+          zCView* view = zCViewCursor::GetCursor()->GetTopSelectedView();
+          if (view) {
+              int x, y;
+              zCViewCursor::GetCursor()->GetActivePointPosition(x, y);
+              bool isInBound = view->IsOnBounds(screen->nax(x), screen->nay(y));
+              bool isInteractive = dynamic_cast<zCViewInteractive*>(view);
+              bool res = isInteractive ? true : !s_itemSelected;
+              if (s_itemSelected) 
+                  s_itemSelected = False;
+              return res; 
+          }        
+      }
 
 
     if( s_itemSelected ) {
@@ -197,22 +219,24 @@ namespace NAMESPACE {
 
 
 
-  void oCItem::RenderItem_Union( zCWorld* world, zCViewBase* viewBase, float v3 ) {
+  void oCItem::RenderItem_Union( zCWorld* world, zCViewBase* viewBase, float v3 ) {    
     if( s_inventory ) {
+      
       zCView* view = dynamic_cast<zCView*>( viewBase );
+
       if( view && view->owner /*&& view->owner == s_inventoryItemView*/ ) {
         int x, y;
         zCViewCursor::GetCursor()->GetActivePointPosition( x, y );
 
+
         if( view->IsOnBounds( screen->nax( x ), screen->nay( y ) ) ) {
-          if( !s_inventory->IsActive() ) {
+            if( !s_inventory->IsActive() ) {
             s_inventory->Activate();
-            //s_inventory->
           }
 
           auto* list = s_inventory->contents->next;
           int index = 0;
-
+          s_itemSelected = False; 
           while( list ) {
             oCItem* item = list->data;
             if( item == this ) {
@@ -227,7 +251,7 @@ namespace NAMESPACE {
 
               s_inventory->selectedItem = index;
               s_itemSelected = True;
-              
+
 #if ENGINE < Engine_G2
               s_inventory->SetCategoryOnRightContainer();
 #endif
@@ -239,6 +263,9 @@ namespace NAMESPACE {
           }
         }
       }
+    }
+    else {
+        s_itemSelected = False;
     }
 
     THISCALL( Ivk_oCItem_RenderItem )( world, viewBase, v3 );
