@@ -32,7 +32,7 @@ namespace GOTHIC_ENGINE {
     float z  = bbox.maxs[VZ];                 // Ближайшая к камере точка модели
     float w  = bbox.maxs[VX] - bbox.mins[VX]; // Ширина модели
     float h  = bbox.maxs[VY] - bbox.mins[VY]; // Высота модели
-    float wh = max( w, h );                   // Наилучшая длина для вписания модели во вьюпорт
+    float wh = max( w, max(h, bbox.maxs[VZ] - bbox.mins[VZ])); // Наилучшая длина для вписания модели во вьюпорт
     float d  = SafeDiv( wh, edgeA );          // Наилучшая дистанция камеры от модели
     float x  = bbox.mins[VX] + w * 0.5f;      // Наилучшая позиция камеры по X
     float y  = bbox.mins[VY] + h * 0.5f;      // Наилучшая позиция камеры по Y
