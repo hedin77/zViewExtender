@@ -51,7 +51,7 @@ namespace NAMESPACE {
 
 
 
-  void zCViewCursor::OnDown( zEMouseButton button ) {
+   void zCViewCursor::OnDown( zEMouseButton button ) {
     if( ActiveViewNote && ActiveViewNote != TopSelectedViewNote )
       ActiveViewNote->EditEnd();
 
@@ -152,11 +152,34 @@ namespace NAMESPACE {
     return DragObject;
   }
 
+  struct zTMouseState {
+      int xpos;
+      int ypos;
+      int zpos;
+      bool_t buttonPressedLeft;
+      bool_t buttonPressedMid;
+      bool_t buttonPressedRight;
+  };
+  
+
+  zTMouseState& GetWrapperMouseState() {
+      HMODULE zMouseFix = GetModuleHandle("zMouseFix.dll");
+      if (zMouseFix != Null) {
+          zTMouseState* mouseState = (zTMouseState*)GetProcAddress(zMouseFix, "wrapperMouseState");
+          if (mouseState != Null)
+              return *mouseState;
+      }
+
+      // Default gothic mouse state
+      return *(zTMouseState*)ZenDef(0x0086CCAC, 0x008B27A8, 0x008C3004, 0x008D165C);
+  }
 
   
   void zCViewCursor::UpdateKeyStates() {
-    if( zMouseKeyPressed( Left ) ) {
-      if( !LeftPressed ) {
+    zTMouseState& wrapperMouseState = GetWrapperMouseState();
+
+    if(zMouseKeyPressed(Left) || wrapperMouseState.buttonPressedLeft) {
+        if( !LeftPressed ) {
         LeftPressed = True;
         LeftToggled = True;
         OnDown( zBUTTON_LEFT );
@@ -172,7 +195,7 @@ namespace NAMESPACE {
       }
     }
 
-    if( zMouseKeyPressed( Mid ) ) {
+    if( zMouseKeyPressed( Mid ) || wrapperMouseState.buttonPressedMid) {
       if( !MiddlePressed ) {
         MiddlePressed = True;
         MiddleToggled = True;
@@ -189,7 +212,7 @@ namespace NAMESPACE {
       }
     }
 
-    if( zMouseKeyPressed( Right ) ) {
+    if( zMouseKeyPressed( Right ) || wrapperMouseState.buttonPressedRight) {
       if( !RightPressed ) {
         RightPressed = True;
         RightToggled = True;
