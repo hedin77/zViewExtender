@@ -42,29 +42,33 @@ namespace NAMESPACE {
 
         oldx = x;
         oldy = y;
-        zCView* frontView = screen->GetTopView( x, y );
-
-        if( frontView ) {
+        Array<zCView*> frontViews = screen->GetTopViewList(x, y);
+        zCView* frontView; 
+        if( !frontViews.IsEmpty() ) {
           for( int i = 0; i < m_listItems.GetNum(); i++ ) {
-            if( m_listItems[i]->m_pInnerWindow == frontView ) {
 
-              zCMenuItem* activeItem = GetActiveItem();
-              if( activeItem != m_listItems[i] ) {
-                SetActiveItem( m_listItems[i] );
+              for (int idx = 0; idx < frontViews.GetNum(); idx++) {
+                  frontView = *frontViews.GetSafe(idx);
+                  if (m_listItems[i]->m_pInnerWindow == frontView) {
+                      zCMenuItem* activeItem = GetActiveItem();
+                      if (activeItem != m_listItems[i]) {
+                          SetActiveItem(m_listItems[i]);
 
-                if( m_listItems[i] == GetActiveItem() ) {
-                  zCSoundFX* sfx = zsound->LoadSoundFX( "MOUSE_SELECT.WAV" );
-                  if( sfx ) {
-                    zsound->PlaySound( sfx, 1 );
-                    sfx->Release();
+                          if (m_listItems[i] == GetActiveItem()) {
+                              zCSoundFX* sfx = zsound->LoadSoundFX("MOUSE_SELECT.WAV");
+                              if (sfx) {
+                                  zsound->PlaySound(sfx, 1);
+                                  sfx->Release();
+                              }
+                          }
+
+                          oCMenuSavegame* menuSavegame = dynamic_cast<oCMenuSavegame*>(this);
+                          if (menuSavegame)
+                              menuSavegame->UpdateThumbPic_Union();
+                      }
                   }
-                }
-
-                oCMenuSavegame* menuSavegame = dynamic_cast<oCMenuSavegame*>( this );
-                if( menuSavegame )
-                  menuSavegame->UpdateThumbPic_Union();
               }
-            }
+
           }
         }
       }
@@ -111,13 +115,19 @@ namespace NAMESPACE {
 
           int x, y;
           cursor->GetPixelPos( x, y );
-          zCView* menuItem = screen->GetTopView( x, y );
-      
-          if( menuItem )
-            for( int i = 0; i < m_listItems.GetNum(); i++ )
-              if( GetActiveItem()->m_pInnerWindow == menuItem )
-                return THISCALL( Ivk_Menu_HandleEvent )( key );
+          Array<zCView*> menuItems = screen->GetTopViewList(x, y);
+          zCView* menuItem;
 
+          if (!menuItems.IsEmpty()) {
+              for (int i = 0; i < m_listItems.GetNum(); i++) {
+                  for (int idx = 0; idx < menuItems.GetNum(); idx++) {
+                      menuItem = *menuItems.GetSafe(idx);
+                      if (GetActiveItem()->m_pInnerWindow == menuItem) {
+                          return THISCALL(Ivk_Menu_HandleEvent)(key);
+                      }
+                  }
+              }
+          }
           return True;
         }
 
