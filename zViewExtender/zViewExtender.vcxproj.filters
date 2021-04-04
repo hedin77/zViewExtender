@@ -79,6 +79,9 @@
     <Filter Include="Plugin\Workspace\Plugin\zViewRenderer">
       <UniqueIdentifier>{59969dc7-093f-4899-980c-29e92aae2144}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Plugin\Workspace\Plugin\zViewItemRenderer">
+      <UniqueIdentifier>{cd0cda7c-77c2-40d6-9f47-946e8be375ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ZenGin\Gothic_I_Classic\staticDef_Ver0.cpp">
@@ -2689,6 +2692,12 @@
     </ClInclude>
     <ClInclude Include="zViewRenderer\zViewRenderer.cpp">
       <Filter>Plugin\Workspace\Plugin\zViewRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="zViewItemRenderer.h">
+      <Filter>Plugin\Workspace\Plugin\zViewItemRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="zViewItemRenderer.cpp">
+      <Filter>Plugin\Workspace\Plugin\zViewItemRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

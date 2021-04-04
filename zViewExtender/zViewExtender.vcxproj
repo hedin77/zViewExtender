@@ -476,6 +476,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="zViewItemRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="zViewItemRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="zViewNote\zViewNote.cpp">
       <SubType>
       </SubType>
