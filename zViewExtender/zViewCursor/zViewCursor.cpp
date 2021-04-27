@@ -611,9 +611,9 @@ namespace NAMESPACE {
   inline zCViewCursor* CreateCursor() {
     zCViewCursor* cursor = new zCViewCursor();
 
-    bool s_bInterfaceScaleEnabled;
-    Union.GetSysPackOption().Read( s_bInterfaceScaleEnabled, "INTERFACE", "Scale", false );
-    if( s_bInterfaceScaleEnabled )
+    int s_bInterfaceScaleEnabled;
+    Union.GetSysPackOption().Read(s_bInterfaceScaleEnabled, "INTERFACE", "Scale");
+    if( s_bInterfaceScaleEnabled >= 1)
       s_nInterfaceScaleMultiplier = 2;
 
     return cursor;
