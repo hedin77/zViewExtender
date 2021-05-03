@@ -6,10 +6,11 @@ namespace NAMESPACE {
   static BOOL bUseCursorInMenu = NULL;
 
   bool needUseCursorInMenu() {
-      if (bUseCursorInMenu == NULL) {
-          Union.GetSysPackOption().Read(bUseCursorInMenu, "zViewExtender", "UseCursorInMenu", true);
-      }
-      return bUseCursorInMenu;
+    //  if (bUseCursorInMenu == NULL) {
+    //      Union.GetSysPackOption().Read(bUseCursorInMenu, "zViewExtender", "UseCursorInMenu", true);
+    //  }
+    //  return bUseCursorInMenu;
+      return false;
   }
 
   HOOK Ivk_Menu_Render  PATCH_IF( &zCMenu::Render,  &zCMenu::Render_Union , needUseCursorInMenu());

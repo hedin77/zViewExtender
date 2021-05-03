@@ -5,10 +5,11 @@ namespace NAMESPACE {
   static BOOL bUseCursorInInventory = NULL;
   
   bool needUseCursorInInventory() {
-       if (bUseCursorInInventory == NULL) {
-           Union.GetSysPackOption().Read(bUseCursorInInventory, "zViewExtender", "UseCursorInInventory", true);
-     }
-      return bUseCursorInInventory;
+       //if (bUseCursorInInventory == NULL) {
+       //    Union.GetSysPackOption().Read(bUseCursorInInventory, "zViewExtender", "UseCursorInInventory", true);
+    // }
+     // return bUseCursorInInventory;
+      return true;
   }
 
   HOOK Ivk_oCItemContainer_HandleEvent  PATCH_IF( &oCItemContainer::HandleEvent,  &oCItemContainer::HandleEvent_Union,  needUseCursorInInventory());

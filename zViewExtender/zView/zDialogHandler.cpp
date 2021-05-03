@@ -10,10 +10,11 @@ namespace NAMESPACE {
   static BOOL bUseCursorInDialogs = NULL;
 
   bool needUseCursorInDialogs() {
-       if (bUseCursorInDialogs == NULL) {
-           Union.GetSysPackOption().Read(bUseCursorInDialogs, "zViewExtender", "UseCursorInDialogs", true);
-       }
-       return bUseCursorInDialogs;
+     //  if (bUseCursorInDialogs == NULL) {
+     //      Union.GetSysPackOption().Read(bUseCursorInDialogs, "zViewExtender", "UseCursorInDialogs", true);
+     //  }
+      // return bUseCursorInDialogs;
+     return false;
   }
 
   HOOK Ivk_zCViewDialogChoice_BlitText    PATCH_IF( &zCViewDialogChoice::BlitText,       &zCViewDialogChoice::BlitText_Union, needUseCursorInDialogs());
