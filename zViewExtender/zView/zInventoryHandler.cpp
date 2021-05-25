@@ -9,15 +9,15 @@ namespace NAMESPACE {
        //    Union.GetSysPackOption().Read(bUseCursorInInventory, "zViewExtender", "UseCursorInInventory", true);
     // }
      // return bUseCursorInInventory;
-      return true;
+      return false;
   }
 
   HOOK Ivk_oCItemContainer_HandleEvent  PATCH_IF( &oCItemContainer::HandleEvent,  &oCItemContainer::HandleEvent_Union,  needUseCursorInInventory());
   HOOK Ivk_oCStealContainer_HandleEvent PATCH_IF( &oCStealContainer::HandleEvent, &oCStealContainer::HandleEvent_Union, needUseCursorInInventory());
   HOOK Ivk_oCNpcContainer_HandleEvent   PATCH_IF( &oCNpcContainer::HandleEvent,   &oCNpcContainer::HandleEvent_Union,   needUseCursorInInventory());
   HOOK Ivk_oCNpcInventory_HandleEvent   PATCH_IF( &oCNpcInventory::HandleEvent,   &oCNpcInventory::HandleEvent_Union, needUseCursorInInventory());
-  HOOK Ivk_oCNpcInventory_OpenPassive   PATCH_IF( &oCItemContainer::OpenPassive,  &oCItemContainer::OpenPassive_Union, needUseCursorInInventory());
-  HOOK Ivk_oCNpcInventory_Close         PATCH_IF( &oCItemContainer::Close,        &oCItemContainer::Close_Union, needUseCursorInInventory());
+  HOOK Ivk_oCNpcInventory_OpenPassive   PATCH_IF( &oCItemContainer::OpenPassive,  &oCItemContainer::OpenPassive_Union, true);
+  HOOK Ivk_oCNpcInventory_Close         PATCH_IF( &oCItemContainer::Close,        &oCItemContainer::Close_Union, true);
   HOOK Ivk_oCItemContainer_Draw         PATCH_IF( &oCItemContainer::Draw,         &oCItemContainer::Draw_Union, needUseCursorInInventory());
   HOOK Ivk_oCItem_RenderItem            PATCH_IF( &oCItem::RenderItem,            &oCItem::RenderItem_Union, needUseCursorInInventory());
 
