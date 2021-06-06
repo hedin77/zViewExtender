@@ -33,7 +33,7 @@ namespace NAMESPACE {
 
 
 
-  static int s_nInterfaceScaleMultiplier = 1;
+  static int psize = 36;
   
 
 
@@ -451,10 +451,7 @@ namespace NAMESPACE {
 
     // Update cursor size and
     // cursor picture position
-    SetSize(
-      zPixelX( 36 * s_nInterfaceScaleMultiplier ),
-      zPixelY( 36 * s_nInterfaceScaleMultiplier )
-      );
+    SetSize(zPixelX(psize), zPixelY(psize));
 
     int ox, oy;
     GetActivePointPosition( ox, oy );
@@ -587,12 +584,13 @@ namespace NAMESPACE {
 
   inline zCViewCursor* CreateCursor() {
     zCViewCursor* cursor = new zCViewCursor();
-
-    int s_bInterfaceScaleEnabled;
-    Union.GetSysPackOption().Read(s_bInterfaceScaleEnabled, "INTERFACE", "Scale");
-    if( s_bInterfaceScaleEnabled >= 1)
-      s_nInterfaceScaleMultiplier = 2;
-
+    float scale;
+    Union.GetSysPackOption().Read(scale, "INTERFACE", "Scale");
+    if (scale == 0.0)
+        scale = 1; 
+    else if (scale > 2)
+        scale = 2;
+    psize = static_cast<int>(36.0 * scale);
     return cursor;
   }
 
