@@ -82,7 +82,9 @@ namespace GOTHIC_ENGINE {
 		camera->vobFarClipZ	 = 999999.0f;
 
 		zCVob* vob = new zCVob();
+#if ENGINE >= Engine_G2
 		vob->m_fVobFarClipZScale = 999999.0f;
+#endif
 
 		zCWorld* world = zfactory->CreateWorld();
 		world->GetBspTree()->bspTreeMode = zBSP_MODE_INDOOR;

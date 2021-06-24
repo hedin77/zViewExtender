@@ -298,6 +298,8 @@ namespace GOTHIC_ENGINE {
     uint clicks      = GetClicksCount();
     bool_t control   = zKeyPressed( KEY_LCONTROL ) || zKeyPressed( KEY_RCONTROL );
     uint totalLength = Text.Length();
+
+#if ENGINE >= Engine_G2
     auto list        = textLines.next;
 
     while( list ) {
@@ -332,7 +334,8 @@ namespace GOTHIC_ENGINE {
 
       list = list->next;
     }
-    
+#endif
+
     return false;
   }
 
@@ -366,6 +369,7 @@ namespace GOTHIC_ENGINE {
     int totalLength = Text.Length();
     int linesNum    = textLines.GetNumInList() - 1;
 
+#if ENGINE >= Engine_G2   
     auto list = textLines.next;
     while( list ) {
       zSTRING& text = list->data->text;
@@ -376,7 +380,7 @@ namespace GOTHIC_ENGINE {
 
       list = list->next;
     }
-
+#endif
     return (uint)linesNum;
   }
 

@@ -31,7 +31,9 @@ namespace GOTHIC_ENGINE {
 		renderWorld = zfactory->CreateWorld();
 		renderWorld->GetBspTree()->bspTreeMode = zBSP_MODE_INDOOR;
 		renderWorld->GetActiveSkyControler()->SetFillBackground(False);
+#if ENGINE > Engine_G2   
 		renderWorld->m_bIsInventoryWorld = true;
+#endif
 	}
 
 
