@@ -38,22 +38,7 @@ namespace NAMESPACE {
     );
 #endif
 
-    Ivk_Menu_Render; 
-    Ivk_Menu_HandleEvent;
-
-    Ivk_zCViewDialogChoice_BlitText;
-    Ivk_zCViewDialog_StartSelection;
-    Ivk_zCViewDialog_StopSelection;
-    Ivk_zCViewDialogChoice_HandleEvent;
-
-    Ivk_oCItemContainer_HandleEvent;
-    Ivk_oCStealContainer_HandleEvent;
-    Ivk_oCNpcContainer_HandleEvent;
-    Ivk_oCNpcInventory_HandleEvent;
-    Ivk_oCNpcInventory_OpenPassive;
-    Ivk_oCNpcInventory_Close;
-    Ivk_oCItemContainer_Draw;
-    Ivk_oCItem_RenderItem;
+  
   }
 
   static zCViewNote* note = Null;
@@ -123,31 +108,7 @@ namespace NAMESPACE {
   }
 
   void Game_MenuLoop() {
-
-    /*if( !note ) {
-      note = new zCViewNote();
-      screen->InsertItem( note );
-      note->SetPos( 4196, 0 );
-      note->SetFont( "FONT_OLD_10_WHITE.TGA" );
-      note->EditBegin();
-      note->InsertBack( "black" );
-      note->SetSize( 3000, 3000 );
-    }*/
-
-    // note->SetHandleEventTop();
-
-#if 0
-    // Test program
-    InitTest();
-#endif
-    if( !player ) {
-      screen->RemoveItem( zCViewCursor::GetCursor() );
-      zCViewCursor::GetCursor()->FrameBegin();
-      zCViewCursor::GetCursor()->FrameEnd();
-
-      screen->InsertItem( zCViewCursor::GetCursor() );
-      zCViewCursor::GetCursor()->Render( false );
-    }
+        
   }
 
   void Game_SaveBegin() {
