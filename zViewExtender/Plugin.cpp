@@ -30,14 +30,15 @@ namespace NAMESPACE {
 
 
   void Game_Entry() {
-    SetWindowsHookEx( WH_KEYBOARD_LL, KeyboardProc, 0, 0 );
+/*
+/   SetWindowsHookEx( WH_KEYBOARD_LL, KeyboardProc, 0, 0 );
 
 #if ENGINE >= Engine_G2
     PATCH_EXECUTE(
         "MemSet(0x0064F1C7, '90', 0x0064F1F0 - 0x0064F1C7)"
     );
 #endif
-
+*/
   
   }
 
